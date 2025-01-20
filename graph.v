@@ -141,16 +141,14 @@ module graph(
 
        if (refresh_tick) begin
            // Right paddle control
-           if (btn[1] & (y_rpad_b < (B_WALL_T - 1 - PAD_VELOCITY)))
-               y_rpad_next = y_rpad_reg + PAD_VELOCITY;
-           else if (btn[0] & (y_rpad_t > (T_WALL_B - 1 - PAD_VELOCITY)))
-               y_rpad_next = y_rpad_reg - PAD_VELOCITY;
+           y_rpad_next = y_rpad_reg + (btn[1] && y_rpad_b < B_WALL_T - PAD_VELOCITY ? PAD_VELOCITY : 
+                           (btn[0] && y_rpad_t > T_WALL_B - PAD_VELOCITY ? -PAD_VELOCITY : 0));
+
 
            // Left paddle control
-           if (btn[3] & (y_lpad_b < (B_WALL_T - 1 - PAD_VELOCITY)))
-               y_lpad_next = y_lpad_reg + PAD_VELOCITY;
-           else if (btn[2] & (y_lpad_t > (T_WALL_B - 1 - PAD_VELOCITY)))
-               y_lpad_next = y_lpad_reg - PAD_VELOCITY;
+           y_rpad_next = y_rpad_reg + (btn[3] && y_rpad_b < B_WALL_T - PAD_VELOCITY ? PAD_VELOCITY : 
+                           (btn[2] && y_rpad_t > T_WALL_B - PAD_VELOCITY ? -PAD_VELOCITY : 0));
+
        end
    end
 
